@@ -19,6 +19,7 @@ int main()
 
     bn::fixed dy = 0;
     bn::fixed gravity = .03;
+    bn::fixed grounded = false;
 
     bn::fixed jump_strength = 1;
 
@@ -34,7 +35,11 @@ int main()
         }
         if (bn::keypad::a_pressed())
         {
-            dy = -jump_strength;
+            if (grounded == true)
+            {
+                grounded = false;
+                dy = -jump_strength;
+            }
         }
 
         dy += gravity;
@@ -45,6 +50,7 @@ int main()
         {
             dot.set_y(FLOOR);
             dy = 0;
+            grounded = true;
         }
         bn::core::update();
     }
